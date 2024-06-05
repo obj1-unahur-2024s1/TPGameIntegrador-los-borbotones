@@ -1,8 +1,12 @@
-import wollok.game.*
-import pepita.*
+//ejercicio wollok game 
+import configuracion.*
+import wollok.game.*                           //importamos las librerias
+//import elementos.*
+//import vehiculos.*	
+//import auto.*
 
-program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
-	game.start()
+program miPrimerWollokGame {
+    
+    juego.play()
+	// que arranque el juego!
 }
