@@ -68,19 +68,21 @@ class Fuel inherits Elemento{
 
 object bomba{
 	//variables para las animaciones
-	const img = ["bomba1.png", "bomba2.png","bomba3.png" ]
+	const img = ["bomba1.png", "bomba2.png","bomba3.png"]
 	var property image= "bomba1.png"
 	method position()= auto.position()
 	
 	method animacionBomba(){ // Animacion itera sobre la lista de imagenes y cambia el visual cada X tiempo
-		var i = 0
-		game.onTick(50,"explosion",{self.image(img.get(i%3)) i+=1})
+		game.onTick(400,"explosion",{self.image(img.get(0.randomUpTo(2)))})
 	}
 	//elimina la animacion
 	method eliminar(tiempo,tick){
 		game.schedule(tiempo, {game.removeTickEvent(tick)})		
 	}
-	
+	method explotar(){
+		self.animacionBomba()
+		self.eliminar(4000, "explosion")
+	}
 }	
 
 object gameOver {
@@ -97,3 +99,11 @@ class Bandera {
 	
 }
 
+class Vida inherits Elemento{
+	
+	method image() = "vida.png"
+	
+	override method iniciar(){game.addVisual(self)}
+	
+	method quitar(){game.removeVisual(self)}
+}

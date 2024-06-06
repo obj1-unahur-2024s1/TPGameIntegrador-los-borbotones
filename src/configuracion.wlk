@@ -16,6 +16,7 @@ object juego {
 		
 		game.title("Autitos game")
 		// límites del tablero de juego
+		//game.cellSize(100)
     	game.width(14)                          // le damos ancho al tablero
 		game.height(8)							// le damos alto al tablero
 		// fondo
@@ -52,11 +53,16 @@ object juego {
 		const elemento6 = new Super(velocidad= 200, position = game.at(1,8))
 		const elemento7 = new Referencia(velocidad= 6000, position = game.at(0,1))
 		const elemento8 = new Fuel(velocidad= 300, position = game.at(5,8))
+		const vida1 = new Vida (velocidad = 0,position= game.at(2,10))
+		const vida2 = new Vida (velocidad = 0,position= game.at(2,11))
+		const vida3 = new Vida (velocidad = 0,position= game.at(2,12))
 		
 		const elementos = [elemento1, elemento2, elemento3, elemento4, elemento5, elemento6, elemento7, elemento8]
+		const vidas = [vida1, vida2, vida3]
 		
 		elementos.forEach{elemento => game.addVisual(elemento)}
 		elementos.forEach{elemento => elemento.iniciar()}
+		vidas.forEach{vida => game.addVisual(vida)}
 		//elemento7.mostrarLlegada()
 	}
 	
@@ -66,8 +72,8 @@ object juego {
 		//asignamos teclas para mover al auto en el tablero
 		keyboard.right().onPressDo{auto.moverseALaDerecha()}
 		keyboard.left().onPressDo{auto.moverseALaIzquierda()}
-		keyboard.up().onPressDo{auto.moverseArriba()}
-		keyboard.down().onPressDo{auto.moverseAbajo()}
+		//keyboard.up().onPressDo{auto.moverseArriba()}
+		//keyboard.down().onPressDo{auto.moverseAbajo()}
 		
 		game.onCollideDo(auto,{vehiculo => vehiculo.chocar()})
 	}

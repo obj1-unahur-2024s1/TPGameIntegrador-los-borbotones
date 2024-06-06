@@ -49,12 +49,20 @@ object auto {
 	}
 	//metodo de indicacion cuando colisiona y para descontar vidas
     method chocar(){
-    	self.animacionDerrape()
-    	self.eliminar(1300, "derrape")
-		game.say(self,"conduce mejor")
-		if (position.x() > 5) self.moverseALaDerecha() else self.moverseALaIzquierda()
-		vida -=1
-		if (vida == 0){game.addVisual(gameOver)}
+    	
+		if (vida == 0){
+			game.addVisual(bomba)
+			game.removeVisual(self)
+			bomba.explotar()
+			game.addVisual(gameOver)
+		}
+		else {
+			self.animacionDerrape()
+    		self.eliminar(1300, "derrape")
+			game.say(self,"conduce mejor")
+			if (position.x() > 5) self.moverseALaDerecha() else self.moverseALaIzquierda()
+			vida -=1
+		}
 	}
 	method sumarVida(){
 		vida+= 1
