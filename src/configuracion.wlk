@@ -18,7 +18,6 @@ object juego {
 		//titulo
 		game.title("Autitos game")
 		// límites del tablero de juego
-		//game.cellSize(100)
     	game.width(14)                          // le damos ancho al tablero
 		game.height(8)							// le damos alto al tablero
 		

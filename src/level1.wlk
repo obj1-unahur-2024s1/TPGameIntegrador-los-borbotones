@@ -47,24 +47,18 @@ object level1{
 		const elemento6 = new Super(velocidad= 200, position = game.at(1,8))
 		const elemento7 = new Referencia(velocidad= 6000, position = game.at(0,1))
 		const elemento8 = new Fuel(velocidad= 300, position = game.at(5,8))
-		const vida1 = new Vida (image= "auto4.png", position= game.at(12,5))
-		const vida2 = new Vida (image= "auto4.png", position= game.at(12,4))
-		const vida3 = new Vida (image= "auto4.png", position= game.at(12,3))
-		
+
 		const elementos = [elemento1, elemento2, elemento3, elemento4, elemento5, elemento6, elemento7, elemento8]
-		const vidas = [vida1, vida2, vida3]
-		
+
 		elementos.forEach{elemento => game.addVisual(elemento)}
-		elementos.forEach{elemento => elemento.iniciar()}
-		vidas.forEach{vida => game.addVisual(vida)}
-		
-		
+		elementos.forEach{elemento => elemento.iniciar()}	
 		//elemento7.mostrarLlegada()
 	}
 	
 	method posicionarAuto(){
 		
 		game.addVisual(auto)
+		auto.posicionarVidas()
 		//asignamos teclas para mover al auto en el tablero
 		keyboard.right().onPressDo{if(auto.estaEnRuta())auto.moverseALaDerecha() else auto.explotar()}
 		keyboard.left().onPressDo{if(auto.estaEnRuta())auto.moverseALaIzquierda() else auto.explotar()}

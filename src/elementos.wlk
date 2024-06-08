@@ -100,7 +100,7 @@ class Bandera {
 }
 
 class Vida inherits Elemento{
-	var image
+	const image
 	
 	method image() = image
 	
