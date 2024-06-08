@@ -64,6 +64,18 @@ object auto {
 			vida -=1
 		}
 	}
+	
+	method explotar(){
+		//falta hacer explotar al auto
+		//desaparece y aparece de nuevo en el medio
+		game.removeVisual(self)
+		position= game.at(5,1)
+		game.addVisual(self)
+		
+	}
+	//indica si el auto esta arriba de la carretera
+	method estaEnRuta()= self.position().x().between(4,7)
+	
 	method sumarVida(){
 		vida+= 1
 	}

@@ -1,9 +1,7 @@
 //ejercicio wollok game 
 import configuracion.*
 import wollok.game.*                           //importamos las librerias
-//import elementos.*
-//import vehiculos.*	
-//import auto.*
+
 
 program miPrimerWollokGame {
     

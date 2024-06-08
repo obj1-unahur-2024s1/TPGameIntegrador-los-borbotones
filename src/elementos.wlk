@@ -3,7 +3,7 @@ import vehiculos.*
 import auto.*
 
 class Elemento {
-	var velocidad
+	const velocidad = 0
 	var position 
 	method position()= position
 	
@@ -58,7 +58,6 @@ class Referencia inherits Elemento{
 
 class Fuel inherits Elemento{
 	// definimos la imagen 
-
 	method image()= "vida.png"
 	override method chocar(){
 		game.removeVisual(self)
@@ -70,6 +69,7 @@ object bomba{
 	//variables para las animaciones
 	const img = ["bomba1.png", "bomba2.png","bomba3.png"]
 	var property image= "bomba1.png"
+	
 	method position()= auto.position()
 	
 	method animacionBomba(){ // Animacion itera sobre la lista de imagenes y cambia el visual cada X tiempo
@@ -90,20 +90,39 @@ object gameOver {
 	
 	method text() = "GAME OVER"
 }
+
 class Bandera {
-	const position
+	var position
 	var image
-	
-	method image()= image
 	method position()= position
+	method image()= image
 	
 }
 
 class Vida inherits Elemento{
+	var image
 	
-	method image() = "vida.png"
+	method image() = image
 	
 	override method iniciar(){game.addVisual(self)}
 	
 	method quitar(){game.removeVisual(self)}
+}
+
+object mano{
+	var position= game.at(5,2)
+	var level= 1
+	
+	method image()= "selecInicial.png"
+	method position()= position
+	method level()= level
+	
+	method moverseArriba(){
+		position= game.at(5,2)
+		level= 1
+	}
+	method moverseAbajo(){
+		position= game.at(5,1)
+		level= 2
+	}
 }

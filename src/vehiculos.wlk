@@ -30,9 +30,6 @@ class Vehiculo {
 	//metodo de indicacion cuando colisiona
 	method chocar(){
 		self.moverseArriba()
-		//game.schedule(200,game.addVisual(bomba))
-		//bomba.animacionBomba()
-		//bomba.eliminar(200, "explosion")
 		auto.chocar()
 		
 	}
