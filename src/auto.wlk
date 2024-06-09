@@ -61,6 +61,7 @@ object auto {
     	
 		if (vida == 0){
 			game.addVisual(bomba)
+			self.cargarVidas()
 			game.removeVisual(self)
 			bomba.explotar()
 			game.addVisual(gameOver)
@@ -97,9 +98,13 @@ object auto {
 		vida+= 1
 	}
 	
+	method cargarVidas(){
+		vida = 3
+	}
+	
 	method volverAlInicio(){
 		game.clear()
-		juego.mostrarSelecLevel()
 		fondo.cambiarFondo("panallaInicial1.png")
+		juego.mostrarSelecLevel()
 	}
 }

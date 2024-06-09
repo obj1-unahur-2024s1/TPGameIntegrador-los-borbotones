@@ -19,7 +19,7 @@ object level1{
 		// Iniciamos personajes de ambos level
 		self.posicionarAuto()
 		self.posicionarBanderas()
-		
+		auto.cargarVidas()
 		//self.iniciarFuel()
 		
 	}
