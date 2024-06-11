@@ -65,6 +65,7 @@ object auto {
 			game.removeVisual(self)
 			bomba.explotar()
 			game.addVisual(gameOver)
+			game.sound("explosion.mp3").play()
 			game.schedule(3000, {self.volverAlInicio()})
 		}
 		else {
@@ -76,9 +77,13 @@ object auto {
 			vida -=1
 		}
 	}
+	
+	//elimina la visual de la vida perdida
 	method quitarVida(){
 		vidas.get(vida - 1).quitar()
 	}
+	
+	
 	method explotar(){
 		//falta hacer explotar al auto
 		//desaparece y aparece de nuevo en el medio
@@ -94,8 +99,19 @@ object auto {
 		vidas.forEach{e => e.iniciar()}
 	}
 	
+	
+	//suma una vida más su visual en el tablero mediante el evento "choque" con el elemento fuel.
 	method sumarVida(){
-		vida+= 1
+		if (vida < 3) {
+			vida += 1
+			self.visualVida()
+		}
+	}
+	
+	//suma el autito que representa la vida según el visual existente
+	//ver cómo refactorizar para quitar tanto if
+	method visualVida(){
+		vidas.get(vida - 1).iniciar()
 	}
 	
 	method cargarVidas(){

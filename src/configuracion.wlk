@@ -10,7 +10,8 @@ object juego {
 	
 		self.configurarPantalla()
 		self.mostrarSelecLevel()
-	
+		self.iniciarSonido()
+		
 		game.start()
 	}
 	
@@ -30,8 +31,11 @@ object juego {
 		keyboard.up().onPressDo{mano.moverseArriba()}
 		keyboard.down().onPressDo{mano.moverseAbajo()}
 		//asignamos level 1 0 2 segun la posicion de mano
-		keyboard.enter().onPressDo{ if (mano.level()==1) level1.configurarPantallaLevel1() else level2.configurarPantallaLevel2()}
-		
+		keyboard.enter().onPressDo{ if (mano.level()==1) level1.configurarPantallaLevel1() else level2.configurarPantallaLevel2() }
+	}
+	
+	method iniciarSonido(){
+		game.schedule(500, { game.sound("audioInicio.mp3").play()} )
 	}
 	
 	

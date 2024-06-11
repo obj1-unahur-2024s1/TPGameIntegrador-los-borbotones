@@ -60,8 +60,8 @@ class Fuel inherits Elemento{
 	// definimos la imagen 
 	method image()= "vida.png"
 	override method chocar(){
-		game.removeVisual(self)
 		auto.sumarVida()
+		game.removeVisual(self)
 	}
 }
 
