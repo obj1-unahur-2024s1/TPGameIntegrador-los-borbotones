@@ -4,7 +4,8 @@ import auto.*
 
 class Vehiculo {
 	// definimos los atributos para velocidad y posición
-	const velocidad = 350
+
+	const velocidad = 300
 	var position 
 
 	method position()= position
@@ -29,6 +30,7 @@ class Vehiculo {
 	
 	//metodo de indicacion cuando colisiona
 	method chocar(){
+		game.sound("choque.mp3").play()
 		self.moverseArriba()
 		auto.chocar()
 		
@@ -39,24 +41,22 @@ class Vehiculo {
 	}
 }
 
-class AutoRojo inherits Vehiculo{
-	// definimos la imagen 
-
-	method image()= "enemigo3.png"
-}
 class Camion inherits Vehiculo{
 	// definimos la imagen 
-
-	method image()= "enemigo4.png"
+	method image() = "enemigo4.png"
 }
+
+class AutoRojo inherits Vehiculo{
+	// definimos la imagen 
+	method image() = "enemigo3.png"
+}
+
 class AutoAmarillo inherits Vehiculo{
 	// definimos la imagen 
-
-	method image()= "enemigo2.png"
+	method image() = "enemigo2.png"
 }
 class AutoAzul inherits Vehiculo{
 	// definimos la imagen 
-
-	method image()= "enemigo1.png"
+	method image() = "enemigo1.png"
 }
 

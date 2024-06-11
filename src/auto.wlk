@@ -18,21 +18,30 @@ object auto {
 	const imgDerecha = ["auto1.png", "auto2.png","auto3.png","auto4.png","auto1.png"]
 	const imgIzquierda = ["auto1.png","auto5.png","auto6.png","auto7.png","auto1.png"]
 	var property image = "auto1.png"
+	const motor = game.sound("motor.mp3")
 	
 	//metodos de consulta
 	method position()= position
 	
 	//metodos en auto para moverse una posicion x sin salir del tablero
     method moverseALaDerecha(){
+    	image = "autoDerecha.png"
     	const ancho= game.width()					//guardo en una var el ancho del tablero
     	const nuevoX= (position.x()+1) % ancho	//le sumo 1 a la posicion del eje X, y me fijo si esta en la ultima posicion le doy el valor 0 
-	    position = game.at(nuevoX, self.position().y())	//guardo en la var position la nueva posicion
+	    game.schedule(100,
+	    	{position = game.at(nuevoX, self.position().y())
+	    	image = "autoIzquierda.png"})
+	    	game.schedule(200, {image = "auto1.png"})	//guardo en la var position la nueva posicion
     }
     
     method moverseALaIzquierda(){
-    	const ancho= game.width()					//guardo en una var el ancho del tablero
-    	if (position.x() > 0) {position= game.at(position.x()-1, position.y() ) }//si Eje x es mayor a 0 le resto 1
-    	else {position= game.at(ancho -1, position.y() ) }	//si eje x es 0 le asigno al eje x el ancho del tablero -1
+    	image = "autoIzquierda.png"
+    	const ancho= game.width()
+    	game.schedule(100,				//guardo en una var el ancho del tablero
+    		{if (position.x() > 0) {position= game.at(position.x()-1, position.y() ) }//si Eje x es mayor a 0 le resto 1
+    		else {position= game.at(ancho -1, position.y() ) }
+    		image = "autoDerecha.png"})		//si eje x es 0 le asigno al eje x el ancho del tablero -1
+    		game.schedule(200, {image = "auto1.png"})	
     }
     
     method moverseArriba() {
@@ -65,6 +74,7 @@ object auto {
 			game.removeVisual(self)
 			bomba.explotar()
 			game.addVisual(gameOver)
+			self.apagarMotor()
 			game.sound("explosion.mp3").play()
 			game.schedule(3000, {self.volverAlInicio()})
 		}
@@ -114,13 +124,25 @@ object auto {
 		vidas.get(vida - 1).iniciar()
 	}
 	
+	//vuelve el contador de vidas a su estado inicial. Sirve para cuando se reinicia algún lvl
 	method cargarVidas(){
 		vida = 3
 	}
 	
+	//resetea el juego
 	method volverAlInicio(){
 		game.clear()
 		fondo.cambiarFondo("panallaInicial1.png")
 		juego.mostrarSelecLevel()
+	}
+	
+	//inicia el sonido del auto
+	method encenderMotor(){
+		motor.shouldLoop(true)
+		motor.play()
+	}
+	
+	method apagarMotor(){
+		motor.stop()
 	}
 }

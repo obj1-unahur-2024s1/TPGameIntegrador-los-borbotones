@@ -35,7 +35,7 @@ object juego {
 	}
 	
 	method iniciarSonido(){
-		game.schedule(500, { game.sound("audioInicio.mp3").play()} )
+		game.schedule(500, { game.sound("audioInicio.mp3").play() } )
 	}
 	
 	

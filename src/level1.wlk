@@ -60,8 +60,9 @@ object level1{
 		auto.posicionarVidas()
 		//asignamos teclas para mover al auto en el tablero
 		game.schedule(3000,{
-		keyboard.right().onPressDo{if(auto.estaEnRuta())auto.moverseALaDerecha() else auto.explotar()}
-		keyboard.left().onPressDo{if(auto.estaEnRuta())auto.moverseALaIzquierda() else auto.explotar()}})
+			keyboard.right().onPressDo{if(auto.estaEnRuta())auto.moverseALaDerecha() else auto.explotar()}
+			keyboard.left().onPressDo{if(auto.estaEnRuta())auto.moverseALaIzquierda() else auto.explotar()}
+			auto.encenderMotor()})
 		//keyboard.up().onPressDo{auto.moverseArriba()}
 		//keyboard.down().onPressDo{auto.moverseAbajo()}
 		
