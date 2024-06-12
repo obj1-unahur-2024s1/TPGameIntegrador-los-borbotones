@@ -9,10 +9,11 @@ import fondos.*
 object auto {
 	
 	var property vida= 3
-	const vida1 = new Vida (image= "auto4.png", position= game.at(12,5))
-	const vida2 = new Vida (image= "auto4.png", position= game.at(12,4))
-	const vida3 = new Vida (image= "auto4.png", position= game.at(12,3))
+	const vida1 = new Vida (image= "referenciaVida.png", position= game.at(11,4))
+	const vida2 = new Vida (image= "referenciaVida.png", position= game.at(12,4))
+	const vida3 = new Vida (image= "referenciaVida.png", position= game.at(13,4))
 	const vidas = [vida1, vida2, vida3]
+	
 	var position = game.at(3,1)
 	//variables para las animaciones
 	const imgDerecha = ["auto1.png", "auto2.png","auto3.png","auto4.png","auto1.png"]
@@ -94,7 +95,7 @@ object auto {
 	}
 	
 	
-	method explotar(){
+	method volverARuta(){
 		//falta hacer explotar al auto
 		//desaparece y aparece de nuevo en el medio
 		game.removeVisual(self)
@@ -105,6 +106,7 @@ object auto {
 	//indica si el auto esta arriba de la carretera
 	method estaEnRuta()= self.position().x().between(4,7)
 	
+	//metodo para que veamos las vidas en el tablero
 	method posicionarVidas(){
 		vidas.forEach{e => e.iniciar()}
 	}
