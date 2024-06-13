@@ -9,9 +9,9 @@ import fondos.*
 object auto {
 	
 	var property vida= 3
-	const vida1 = new Vida (image= "referenciaVida.png", position= game.at(11,4))
-	const vida2 = new Vida (image= "referenciaVida.png", position= game.at(12,4))
-	const vida3 = new Vida (image= "referenciaVida.png", position= game.at(13,4))
+	const vida1 = new Vida (position= game.at(11,4))
+	const vida2 = new Vida (position= game.at(12,4))
+	const vida3 = new Vida (position= game.at(13,4))
 	const vidas = [vida1, vida2, vida3]
 	
 	var position = game.at(3,1)
@@ -19,7 +19,6 @@ object auto {
 	const imgDerecha = ["auto1.png", "auto2.png","auto3.png","auto4.png","auto1.png"]
 	const imgIzquierda = ["auto1.png","auto5.png","auto6.png","auto7.png","auto1.png"]
 	var property image = "auto1.png"
-	const motor = game.sound("motor.mp3")
 	
 	//metodos de consulta
 	method position()= position
@@ -82,7 +81,7 @@ object auto {
 		else {
 			self.animacionDerrape()
     		self.eliminar(1300, "derrape")
-			game.say(self,"conduce mejor")
+			game.say(self,["Soltá el celu", "La vista en el camino", "Dónde compraste el registro?", "Pagaste el seguro?"].get(0.randomUpTo(3)))
 			if (position.x() > 5) self.moverseALaDerecha() else self.moverseALaIzquierda()
 			self.quitarVida()
 			vida -=1
@@ -140,11 +139,10 @@ object auto {
 	
 	//inicia el sonido del auto
 	method encenderMotor(){
-		motor.shouldLoop(true)
-		motor.play()
+		motor.encender()
 	}
 	
 	method apagarMotor(){
-		motor.stop()
+		motor.apagar()
 	}
 }

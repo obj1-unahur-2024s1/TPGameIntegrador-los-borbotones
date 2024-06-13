@@ -4,7 +4,7 @@ import wollok.game.*
 object fondo {
 	var fondo= "panallaInicial1.png"
 	
-	method position()= game.at(0,0)
+	method position()= game.origin()
 	method image()= fondo
 	// metodo para cambiar imagen de fondo
 	method cambiarFondo(nuevo){
