@@ -3,7 +3,7 @@ import elementos.*
 import auto.*
 import vehiculos.*
 import fondos.*
-
+import score.*
 
 object level1{
 	
@@ -21,6 +21,7 @@ object level1{
 		self.posicionarBanderas()
 		auto.cargarVidas()
 		//self.iniciarFuel()
+		score.iniciar()
 	}
 	
 	method posicionarAutosEnemigos(){
