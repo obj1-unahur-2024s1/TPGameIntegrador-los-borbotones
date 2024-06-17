@@ -1,6 +1,10 @@
 import wollok.game.*
 import vehiculos.*
 import auto.*
+import fondos.*
+import level1.*
+import level2.*
+import score.*
 
 class Elemento {
 	const velocidad = 0
@@ -18,7 +22,6 @@ class Elemento {
 	 method moverseArriba() {
     	const altura= game.height()						//guardo en una var la altura del tablero
     	const nuevoY= (position.y()+1) % altura			//le sumo 1 a la posicion del eje y, y me fijo si esta en la ultima posicion le doy el valor 0 
-    	
 	    position = game.at(self.position().x(), nuevoY)	//guardo en la var position la nueva posicion
     }
     
@@ -26,7 +29,10 @@ class Elemento {
 		game.say(self,"vuelve a la carretera")
 	}
 	method iniciar(){
-		game.onTick(velocidad,"elemento1",{self.moverseAbajo()})
+		game.onTick(velocidad,"movimientoElementos",{self.moverseAbajo()})
+	}
+	method parar(){
+		game.removeTickEvent("movimientoElementos")
 	}
 }
 
@@ -55,22 +61,10 @@ class Super inherits Elemento{
 	method image()= "super.png"
 	
 	override  method iniciar(){
-		game.onTick(velocidad,"elemento1",{self.moverseArriba()})
+		game.onTick(velocidad,"movimientoElementos",{self.moverseArriba()})
 	}
 }
 	
-class Referencia inherits Elemento{
-	// definimos la imagen 
-
-	method image()= "referencia.png"
-	
-	override method iniciar(){
-		game.onTick(velocidad,"elemento1",{self.moverseArriba()})
-	}
-	//method mostrarLlegada(){
-		//if(position.y()==7)game.boardGround("fondoLlegada.png")
-	//}
-}
 
 class Fuel inherits Elemento{
 	// definimos la imagen 
@@ -107,12 +101,42 @@ object gameOver {
 	method text() = "GAME OVER"
 }
 
+object referencia {
+	const velocidad = 10000
+	var position = game.at(0,1)
+	const image= "referencia.png"
+	method position()= position
+	method image()= image
+	method moverseArriba() {
+    	position = game.at(position.x(), position.y()+1)
+  	}
+	method iniciar(){
+		game.onTick(velocidad,"movimientoElementos",{self.moverseArriba()})
+	}
+	method reiniciar(){
+		position = game.at(0,1)
+	}
+	method mostrarCuandoLlega(){
+		game.onCollideDo(self,{bandera => bandera.mostrarLlegada()})
+	}
+}
+
 class Bandera {
 	var position
 	var image
 	method position()= position
 	method image()= image
-	
+	method mostrarLlegada(){
+		fondo.cambiarFondo("llegada.png")
+		level1.pararVehiculos()
+		level1.pararElementos()
+		auto.apagarMotor()
+		auto.nuevaPosition(5,4)
+		pepita.salir()
+		game.schedule(8000, {level1.borrarElementos()})
+		game.schedule(8000, {level1.borrarVehiculos()})
+		game.schedule(9000, {level2.iniciarSiPasoDeLevel1()})
+	}
 }
 
 class Vida {
@@ -149,4 +173,23 @@ object motor{
 	const sonido = game.sound("motor.mp3")
 	method encender(){sonido.play()}
 	method apagar(){sonido.stop()}
+}
+
+
+object pepita{
+	var position= game.at(3,6)
+	
+	method position()= position
+	method image()= "pepita.png"
+	
+	method moverseALaDerecha(){
+    	const ancho= game.width()					//guardo en una const el ancho del tablero
+    	const nuevoX= (position.x()+1) % ancho	//le sumo 1 a la posicion del eje X, y me fijo si esta en la ultima posicion le doy el valor 0 
+	    position = game.at(nuevoX, self.position().y())	//guardo en la var position la nueva posicion
+    }
+    method salir(){
+    	game.addVisual(self)
+    		game.schedule(300, {game.say(self, "GANASTE")})
+    		game.schedule(300, {self.moverseALaDerecha()})
+    }
 }

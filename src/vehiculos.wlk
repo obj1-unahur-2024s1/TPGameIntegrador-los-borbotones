@@ -16,7 +16,7 @@ class Vehiculo {
   	}
 	
     method moverseALaIzquierda(){
-    	position = game.at(position.x()+1, position.y())
+    	position = game.at(position.x()-1, position.y())
   	}
   	
   	//método abstracto para que no se cree una instancia de vehículo sin definir clase
@@ -34,8 +34,12 @@ class Vehiculo {
 	}
 	
 	method iniciar(){
-		game.onTick(velocidad,"enemigo",{self.moverseAbajo()})
+		game.onTick(velocidad,"vehiculoBajar",{self.moverseAbajo()})
 	}
+	method parar(){
+		game.removeTickEvent("vehiculoBajar")
+	}
+	
 }
 
 class Camion inherits Vehiculo{

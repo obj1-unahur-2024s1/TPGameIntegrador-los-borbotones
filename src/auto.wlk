@@ -16,44 +16,25 @@ object auto {
 	
 	var position = game.at(3,1)
 	//variables para las animaciones
-	const imgDerecha = ["auto1.png", "auto2.png","auto3.png","auto4.png","auto1.png"]
-	const imgIzquierda = ["auto1.png","auto5.png","auto6.png","auto7.png","auto1.png"]
+	const imgDerecha = [/*"auto1.png", */"auto2.png","auto3.png","auto4.png","auto1.png"]
+	const imgIzquierda = [/*"auto1.png",*/"auto5.png","auto6.png","auto7.png","auto1.png"]
 	var property image = "auto1.png"
 	
 	//metodos de consulta
 	method position()= position
 	
-	//metodos en auto para moverse una posicion x sin salir del tablero
+	//metodos en auto para moverse una posicion x 
     method moverseALaDerecha(){
-    	image = "autoDerecha.png"
-    	const ancho= game.width()					//guardo en una var el ancho del tablero
-    	const nuevoX= (position.x()+1) % ancho	//le sumo 1 a la posicion del eje X, y me fijo si esta en la ultima posicion le doy el valor 0 
-	    game.schedule(100,
-	    	{position = game.at(nuevoX, self.position().y())
-	    	image = "autoIzquierda.png"})
-	    	game.schedule(200, {image = "auto1.png"})	//guardo en la var position la nueva posicion
+    	image = "autoDerecha.png"	
+	    game.schedule(100,{position = game.at(position.x()+1, position.y()) image = "autoIzquierda.png"})
+	    game.schedule(200, {image = "auto1.png"})	
     }
     
     method moverseALaIzquierda(){
     	image = "autoIzquierda.png"
-    	const ancho= game.width()
-    	game.schedule(100,				//guardo en una var el ancho del tablero
-    		{if (position.x() > 0) {position= game.at(position.x()-1, position.y() ) }//si Eje x es mayor a 0 le resto 1
-    		else {position= game.at(ancho -1, position.y() ) }
-    		image = "autoDerecha.png"})		//si eje x es 0 le asigno al eje x el ancho del tablero -1
-    		game.schedule(200, {image = "auto1.png"})	
+    	game.schedule(100,{position = game.at(position.x()-1, position.y()) image = "autoDerecha.png"})		
+    	game.schedule(200, {image = "auto1.png"})	
     }
-    
-    method moverseArriba() {
-    	const altura= game.height()					//guardo en una var la altura del tablero
-    	const nuevoY= (position.y()+1) % altura		//le sumo 1 a la posicion del eje y, y me fijo si esta en la ultima posicion le doy el valor 0 
-	    position = game.at(self.position().x(), nuevoY)	//guardo en la var position la nueva posicion
-    }
-    method moverseAbajo() {
-    	const altura= game.height()					//guardo en una var la altura del tablero
-    	if (position.y() > 0) {position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
-    	else {position= game.at(position.x(), altura-1 ) }	//si eje y es 0 le asigno al eje y el ancho del tablero -1
-	}
     
     //metodo para animacion al colisionar
     method animacionDerrape(){ // Animacion itera sobre la lista de imagenes y cambia el visual cada X tiempo
@@ -61,26 +42,26 @@ object auto {
 		if (position.x() > 5) {game.onTick(200,"derrape",{self.image(imgDerecha.get(i%5)) i+=1})}
 		else {game.onTick(200,"derrape",{self.image(imgIzquierda.get(i%5)) i+=1})}
 	}
-	//metodo para eliminar la animacion
-	method eliminar(tiempo,tick){
+	//metodo para eliminar animaciones
+	method eliminarAnimacion(tiempo,tick){
 		game.schedule(tiempo, {game.removeTickEvent(tick)})		
 	}
 	//metodo de indicacion cuando colisiona y para descontar vidas
     method chocar(){
     	
 		if (vida == 0){
+			self.apagarMotor()
 			game.addVisual(bomba)
 			self.cargarVidas()
 			game.removeVisual(self)
 			bomba.explotar()
 			game.addVisual(gameOver)
-			self.apagarMotor()
 			game.sound("explosion.mp3").play()
 			game.schedule(3000, {self.volverAlInicio()})
 		}
 		else {
 			self.animacionDerrape()
-    		self.eliminar(1300, "derrape")
+    		self.eliminarAnimacion(1100, "derrape")
 			game.say(self,["Soltá el celu", "La vista en el camino", "Dónde compraste el registro?", "Pagaste el seguro?"].get(0.randomUpTo(3)))
 			if (position.x() > 5) self.moverseALaDerecha() else self.moverseALaIzquierda()
 			self.quitarVida()
@@ -95,7 +76,7 @@ object auto {
 	
 	
 	method volverARuta(){
-		//falta hacer explotar al auto
+		//faltaria hacer explotar al auto cuando sale de la carretera 
 		//desaparece y aparece de nuevo en el medio
 		game.removeVisual(self)
 		position= game.at(5,1)
@@ -103,7 +84,7 @@ object auto {
 		
 	}
 	//indica si el auto esta arriba de la carretera
-	method estaEnRuta()= self.position().x().between(4,7)
+	method estaEnRuta()= self.position().x().between(3,8)
 	
 	//metodo para que veamos las vidas en el tablero
 	method posicionarVidas(){
@@ -135,6 +116,7 @@ object auto {
 		game.clear()
 		fondo.cambiarFondo("panallaInicial1.png")
 		juego.mostrarSelecLevel()
+		juego.iniciarSonido()
 	}
 	
 	//inicia el sonido del auto
@@ -144,5 +126,9 @@ object auto {
 	
 	method apagarMotor(){
 		motor.apagar()
+	}
+	
+	method nuevaPosition(x,y){
+		position= game.at(x,y)
 	}
 }

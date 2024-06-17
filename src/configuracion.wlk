@@ -12,7 +12,7 @@ object juego {
 		self.mostrarSelecLevel()
 		self.iniciarSonido()
 		
-		game.start()
+		
 	}
 	
 	method configurarPantalla(){

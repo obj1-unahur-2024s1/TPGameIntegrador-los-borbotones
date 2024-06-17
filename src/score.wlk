@@ -26,6 +26,10 @@ object unidad{
 		game.addVisual(unidades.get(aux))
 		game.onTick(1000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
 	}
+	method parar(){
+		game.removeTickEvent("cambiarUnidad")
+	}
+	
 }
 object decena{
 	const cero= new Num(position= game.at(12,6), image="number0.png" )
@@ -43,8 +47,12 @@ object decena{
 	method iniciar(){
 		var aux= 0
 		game.addVisual(unidades.get(aux))
-		game.onTick(5000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
+		game.onTick(10000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
 	}
+	method parar(){
+		game.removeTickEvent("cambiarUnidad")
+	}
+	
 }
 
 object centena{
@@ -63,8 +71,12 @@ object centena{
 	method iniciar(){
 		var aux= 0
 		game.addVisual(unidades.get(aux))
-		game.onTick(10000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
+		game.onTick(100000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
 	}
+	method parar(){
+		game.removeTickEvent("cambiarUnidad")
+	}
+	
 }
 
 object score{
@@ -73,5 +85,10 @@ object score{
 		unidad.iniciar()
 		decena.iniciar()
 		centena.iniciar()
+	}
+	method parar(){
+		unidad.parar()
+		decena.parar()
+		centena.parar()
 	}
 }
