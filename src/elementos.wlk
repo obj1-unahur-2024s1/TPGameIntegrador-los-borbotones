@@ -1,4 +1,5 @@
 import wollok.game.*
+import configuracion.*
 import vehiculos.*
 import auto.*
 import fondos.*
@@ -67,8 +68,20 @@ class Super inherits Elemento{
 	
 
 class Fuel inherits Elemento{
-	// definimos la imagen 
+	// definimos la imagen
+	
 	method image()= "vida.png"
+	
+	method inicializar(posicionX, posicionY){
+		position = game.at(posicionX, posicionY)
+	}
+	
+	override method moverseAbajo(){
+    	
+    	if (position.y() > 0) { position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
+    	else { if(game.hasVisual(self)) game.removeVisual(self) } 	//cuando la vida sale del tablero, se borra.
+	}
+	
 	override method chocar(){
 		auto.sumarVida()
 		game.removeVisual(self)
@@ -102,6 +115,7 @@ object gameOver {
 }
 
 object referencia {
+	
 	const velocidad = 10000
 	var position = game.at(0,1)
 	const image= "referencia.png"
@@ -117,16 +131,20 @@ object referencia {
 		position = game.at(0,1)
 	}
 	method mostrarCuandoLlega(){
-		game.onCollideDo(self,{bandera => bandera.mostrarLlegada()})
+		game.onCollideDo(self, { bandera => bandera.mostrarLlegada() } )
 	}
 }
 
 class Bandera {
 	var position
 	var image
+	
 	method position()= position
+	
 	method image()= image
+	
 	method mostrarLlegada(){
+		/* 
 		fondo.cambiarFondo("llegada.png")
 		level1.pararVehiculos()
 		level1.pararElementos()
@@ -136,6 +154,16 @@ class Bandera {
 		game.schedule(8000, {level1.borrarElementos()})
 		game.schedule(8000, {level1.borrarVehiculos()})
 		game.schedule(9000, {level2.iniciarSiPasoDeLevel1()})
+		
+		*/
+		auto.apagarMotor()
+		fondo.cambiarFondo("llegada.png")
+		game.schedule(2000, {
+			game.clear()
+			fondo.cambiarFondo("panallaInicial1.png")
+			juego.mostrarSelecLevel()
+			juego.iniciarSonido()
+		})
 	}
 }
 
@@ -171,8 +199,17 @@ object mano{
 
 object motor{
 	const sonido = game.sound("motor.mp3")
-	method encender(){sonido.play()}
-	method apagar(){sonido.stop()}
+	
+	method inicializar(){
+		sonido.shouldLoop(true)
+		sonido.volume(0.3)
+		sonido.play()
+		sonido.pause()
+	}
+	
+	method encender(){ sonido.resume() }
+	
+	method apagar() { sonido.pause() }
 }
 
 

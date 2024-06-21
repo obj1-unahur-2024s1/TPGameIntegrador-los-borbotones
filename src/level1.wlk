@@ -5,7 +5,7 @@ import vehiculos.*
 import fondos.*
 import score.*
 
-object level1{
+object level1 {
 	
 	//instancias de vehiculos enemigos para el level 1
 	const enemigo1 = new AutoRojo( position = game.at(4,6))
@@ -22,13 +22,13 @@ object level1{
 	const elemento4 = new Arbusto(velocidad= 300, position = game.at(1,2))
 	const elemento5 = new Arbusto(velocidad= 300, position = game.at(2,7))
 	const elemento6 = new Super(velocidad= 200, position = game.at(1,8))
-	const elemento7 = new Fuel(velocidad= 300, position = game.at(5,8))
+	const fuel1 = new Fuel(velocidad= 300, position = game.at(5,8))
+	const fuel2 = new Fuel(velocidad= 300, position = game.at(7,8))
 	//coleccion de elementos del level 1
 	const elementos = [elemento1, elemento2, elemento3, elemento4, elemento5, elemento6]
 	//instancias de banderas de referencia ambos level
 	const bandera1 = new Bandera(image= "banderaLargada.png", position = game.at(0,0))
 	const bandera2 = new Bandera(image= "banderaLlegada.png", position = game.at(0,7))
-	
 	
 	method posicionarReferencia(){
 		game.addVisual(referencia)
@@ -47,15 +47,12 @@ object level1{
 	method borrarVehiculos(){
 		autosEnemigos.forEach{enemigo => game.removeVisual(enemigo)}
 	}
-	
 		
 	method posicionarElementos(){
 		elementos.forEach{elemento => game.addVisual(elemento)}
-		game.addVisual(elemento7)
 	}
 	method iniciarElementos(){	
 		game.schedule(3000, {elementos.forEach{elemento => elemento.iniciar()}})
-		elemento7.iniciar()
 	}
 	method pararElementos(){
 		elementos.forEach{elemento => elemento.parar()}
@@ -90,6 +87,15 @@ object level1{
 		game.schedule(3000, {game.sound("largada2.mp3").play()})
 	}
 	
+	method cargasDeCombustible(){
+		game.addVisual(fuel1)
+		game.addVisual(fuel2)
+		fuel1.inicializar(5,8)
+		fuel2.inicializar(7,8)
+		game.schedule(10000, { fuel1.iniciar() })
+		game.schedule(15000, { fuel2.iniciar() })
+	}
+	
 	method configurarPantallaLevel1(){
 		//sacamos el object mano
 		game.removeVisual(mano)
@@ -101,7 +107,7 @@ object level1{
 		self.posicionarBanderas()
 		auto.cargarVidas()
 		//self.iniciarFuel()
-		score.iniciar()
+		game.schedule(3000, { score.iniciar() } )
 		self.audioLargada()
     	// Iniciamos los personajes de level1
 		self.posicionarAutosEnemigos()
@@ -109,6 +115,7 @@ object level1{
 		self.posicionarElementos()
 		self.iniciarElementos()
 		self.posicionarReferencia()
+		self.cargasDeCombustible()
 		
 	}
 }

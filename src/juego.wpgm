@@ -7,5 +7,4 @@ program miPrimerWollokGame {
     
     juego.play()
 	// que arranque el juego!
-	game.start()
 }

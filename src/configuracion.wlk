@@ -11,8 +11,8 @@ object juego {
 		self.configurarPantalla()
 		self.mostrarSelecLevel()
 		self.iniciarSonido()
-		
-		
+		self.encendiendoMotores()
+		game.start()
 	}
 	
 	method configurarPantalla(){
@@ -35,8 +35,10 @@ object juego {
 	}
 	
 	method iniciarSonido(){
-		game.schedule(500, { game.sound("audioInicio.mp3").play() } )
+		game.schedule( 500, { game.sound("audioInicio.mp3").play() } )
 	}
 	
-	
+	//usamos como sonido de fondo al motor del auto. Al que pausamos cada vez que se termina el juego y reanudamos cada vez que comienza.
+
+	method encendiendoMotores(){ game.schedule(500, {motor.inicializar()}) }
 }

@@ -16,8 +16,8 @@ object auto {
 	
 	var position = game.at(3,1)
 	//variables para las animaciones
-	const imgDerecha = [/*"auto1.png", */"auto2.png","auto3.png","auto4.png","auto1.png"]
-	const imgIzquierda = [/*"auto1.png",*/"auto5.png","auto6.png","auto7.png","auto1.png"]
+	const imgDerecha = ["auto1.png","auto2.png","auto3.png","auto4.png","auto1.png"]
+	const imgIzquierda = ["auto1.png","auto5.png","auto6.png","auto7.png","auto1.png"]
 	var property image = "auto1.png"
 	
 	//metodos de consulta
@@ -39,8 +39,9 @@ object auto {
     //metodo para animacion al colisionar
     method animacionDerrape(){ // Animacion itera sobre la lista de imagenes y cambia el visual cada X tiempo
 		var i = 0
-		if (position.x() > 5) {game.onTick(200,"derrape",{self.image(imgDerecha.get(i%5)) i+=1})}
-		else {game.onTick(200,"derrape",{self.image(imgIzquierda.get(i%5)) i+=1})}
+		
+		if (position.x() > 5) { game.onTick( 200,"derrape",{self.image(imgDerecha.get(i%5)) i+=1 } ) }
+		else { game.onTick( 200,"derrape",{ self.image(imgIzquierda.get(i%5)) i+=1}) }
 	}
 	//metodo para eliminar animaciones
 	method eliminarAnimacion(tiempo,tick){
