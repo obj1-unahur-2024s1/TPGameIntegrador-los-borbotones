@@ -84,6 +84,7 @@ class Fuel inherits Elemento{
 	
 	override method chocar(){
 		auto.sumarVida()
+		score.vidaObtenida()
 		game.removeVisual(self)
 	}
 }
@@ -179,7 +180,7 @@ class Vida {
 	method quitar(){game.removeVisual(self)}
 }
 
-object mano{
+object mano {
 	var position= game.at(5,2)
 	var level= 1
 	

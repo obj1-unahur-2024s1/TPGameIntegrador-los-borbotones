@@ -53,8 +53,8 @@ class Camion inherits Vehiculo{
 		const x = (3.. game.width()-6).anyOne()		//le asigno un valor random al Eje x
     	const altura= game.height()					//guardo en una var la altura del tablero
     	game.schedule(100, 
-    		{if (position.y() > 0) {position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
-    		else { position= game.at(x, altura-1 )} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
+    		{if (position.y() > 0) { position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
+    		else { position= game.at(x, altura-1 ) } 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
     		image = fotogramas.get(2)})
     	game.schedule(200, {self.image(fotogramas.get(0))})
     }

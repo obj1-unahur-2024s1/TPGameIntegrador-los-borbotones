@@ -3,7 +3,7 @@ import configuracion.*
 import wollok.game.*                           //importamos las librerias
 
 
-program miPrimerWollokGame {
+program roadFighter {
     
     juego.play()
 	// que arranque el juego!

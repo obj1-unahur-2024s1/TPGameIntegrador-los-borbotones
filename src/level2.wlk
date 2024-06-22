@@ -11,13 +11,36 @@ object level2{
 	
 	//instancias de vehiculos enemigos para el level 2
 	
+	const enemigo1 = new AutoRojo( position = game.at(4,6))
+	const enemigo2 = new AutoRojo( position = game.at(5,1))
+	const enemigo3 = new Camion( position = game.at(3,7))
+	const enemigo4 = new Camion( position = game.at(4,2))
+	const enemigo5 = new AutoAmarillo( position = game.at(6,5))
+	const enemigo6 = new AutoAmarillo( position = game.at(7,5))
+	const enemigo7 = new AutoAzul( position = game.at(8,3))
+	const enemigo8 = new AutoAzul( position = game.at(8,4))
+	const enemigo9 = new AutoAzul( position = game.at(7,4))
+	
 	//coleccion de los vehiculos enemigos level2
 	
+	const autosEnemigos = [enemigo1, enemigo2, enemigo3, enemigo4, enemigo5, enemigo6, enemigo7, enemigo8, enemigo9]
 	
 	//instancias de elementos en pantalla del level 2
 	
 	//coleccion de elementos del level 2
 	
+	method posicionarAutosEnemigos(){
+		autosEnemigos.forEach{enemigo => game.addVisual(enemigo)}
+	}
+	method iniciarAutosEnemigos(){
+		game.schedule(3000, { autosEnemigos.forEach{ enemigo => enemigo.iniciar() } })
+	}
+	method pararVehiculos(){
+		autosEnemigos.forEach{ enemigo => enemigo.parar() }
+	}
+	method borrarVehiculos(){
+		autosEnemigos.forEach{enemigo => game.removeVisual(enemigo)}
+	}
 	
 	method iniciarSiPasoDeLevel1(){
 		//configuramos fondo del juego en level 2
@@ -43,7 +66,7 @@ object level2{
 		
     	// Iniciamos los personajes de level2
     	
-		//self.posicionarAutosEnemigos()
+		self.posicionarAutosEnemigos()
 		//self.posicionarElementos()
 		
 		// Iniciamos personajes que comparten ambos level
@@ -53,7 +76,8 @@ object level2{
     	referencia.reiniciar()
 		score.iniciar()
 		level1.audioLargada()
-		//self.iniciarFuel()
+		level1.cargasDeCombustible()
+		self.iniciarAutosEnemigos()
 		
 	}
 	

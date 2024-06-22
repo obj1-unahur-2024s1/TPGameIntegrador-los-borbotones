@@ -8,25 +8,43 @@ import score.*
 object level1 {
 	
 	//instancias de vehiculos enemigos para el level 1
+	
 	const enemigo1 = new AutoRojo( position = game.at(4,6))
 	const enemigo2 = new Camion( position = game.at(3,7))
 	const enemigo3 = new AutoAmarillo( position = game.at(6,5))
 	const enemigo4 = new AutoAzul( position = game.at(8,3))
 	const enemigo5 = new AutoAzul( position = game.at(8,4))
+	
 	//coleccion de los vehiculos enemigos
+	
 	const autosEnemigos = [enemigo1, enemigo2, enemigo3, enemigo4, enemigo5]
+	
 	//instancias de elementos en pantalla del level 1
+	
 	const elemento1 = new Arbusto(velocidad= 300, position = game.at(9,7))
 	const elemento2 = new Arbusto(velocidad= 300, position = game.at(10,5))
 	const elemento3 = new Arbusto(velocidad= 300, position = game.at(9,3))
 	const elemento4 = new Arbusto(velocidad= 300, position = game.at(1,2))
 	const elemento5 = new Arbusto(velocidad= 300, position = game.at(2,7))
 	const elemento6 = new Super(velocidad= 200, position = game.at(1,8))
+	
+	//coleccion de elementos del level 1
+	
+	const elementos = [elemento1, elemento2, elemento3, elemento4, elemento5, elemento6]
+	
+	//instancias de combustibles lvl 1
+	
 	const fuel1 = new Fuel(velocidad= 300, position = game.at(5,8))
 	const fuel2 = new Fuel(velocidad= 300, position = game.at(7,8))
-	//coleccion de elementos del level 1
-	const elementos = [elemento1, elemento2, elemento3, elemento4, elemento5, elemento6]
+	const fuel3 = new Fuel(velocidad= 300, position = game.at(6,8))
+	const fuel4 = new Fuel(velocidad= 300, position = game.at(5,8))
+	
+	//collección de combustibles de lvl 1
+	
+	const fuel = [fuel1, fuel2, fuel3, fuel4]
+	
 	//instancias de banderas de referencia ambos level
+	
 	const bandera1 = new Bandera(image= "banderaLargada.png", position = game.at(0,0))
 	const bandera2 = new Bandera(image= "banderaLlegada.png", position = game.at(0,7))
 	
@@ -39,10 +57,10 @@ object level1 {
 		autosEnemigos.forEach{enemigo => game.addVisual(enemigo)}
 	}
 	method iniciarAutosEnemigos(){
-		game.schedule(3000, {autosEnemigos.forEach{enemigo => enemigo.iniciar()}})
+		game.schedule(3000, { autosEnemigos.forEach{ enemigo => enemigo.iniciar() } })
 	}
 	method pararVehiculos(){
-		autosEnemigos.forEach{enemigo => enemigo.parar()}
+		autosEnemigos.forEach{ enemigo => enemigo.parar() }
 	}
 	method borrarVehiculos(){
 		autosEnemigos.forEach{enemigo => game.removeVisual(enemigo)}
@@ -52,20 +70,20 @@ object level1 {
 		elementos.forEach{elemento => game.addVisual(elemento)}
 	}
 	method iniciarElementos(){	
-		game.schedule(3000, {elementos.forEach{elemento => elemento.iniciar()}})
+		game.schedule(3000, { elementos.forEach{elemento => elemento.iniciar() } })
 	}
 	method pararElementos(){
-		elementos.forEach{elemento => elemento.parar()}
+		elementos.forEach{ elemento => elemento.parar() }
 	}
 	method borrarElementos(){
-		elementos.forEach{elemento => game.removeVisual(elemento)}	
+		elementos.forEach{ elemento => game.removeVisual(elemento) }	
 	}
 	
 	method posicionarAuto(){
 		game.addVisual(auto)
 		auto.posicionarVidas()
 		//asignamos teclas para mover al auto en el tablero
-		game.schedule(3000,{
+		game.schedule(3100,{
 			keyboard.right().onPressDo{if(auto.estaEnRuta())auto.moverseALaDerecha() else auto.volverARuta()}
 			keyboard.left().onPressDo{if(auto.estaEnRuta())auto.moverseALaIzquierda() else auto.volverARuta()}
 			auto.encenderMotor()
@@ -88,12 +106,12 @@ object level1 {
 	}
 	
 	method cargasDeCombustible(){
-		game.addVisual(fuel1)
-		game.addVisual(fuel2)
-		fuel1.inicializar(5,8)
-		fuel2.inicializar(7,8)
-		game.schedule(10000, { fuel1.iniciar() })
-		game.schedule(15000, { fuel2.iniciar() })
+		fuel.forEach{ f => game.addVisual(f) }
+		fuel.forEach{ f => f.inicializar((5.. 7).anyOne(), 8) }
+		game.schedule(15000, { fuel1.iniciar() })
+		game.schedule(23000, { fuel2.iniciar() })
+		game.schedule(30000, { fuel3.iniciar() })
+		game.schedule(37000, { fuel4.iniciar() })
 	}
 	
 	method configurarPantallaLevel1(){

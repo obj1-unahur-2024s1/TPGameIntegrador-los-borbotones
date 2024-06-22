@@ -5,6 +5,7 @@ import level2.*
 import configuracion.*
 import vehiculos.*
 import fondos.*
+import score.*
 
 object auto {
 	
@@ -58,7 +59,7 @@ object auto {
 			bomba.explotar()
 			game.addVisual(gameOver)
 			game.sound("explosion.mp3").play()
-			game.schedule(3000, {self.volverAlInicio()})
+			game.schedule(3000, {self.volverAlInicio() score.reiniciar()})
 		}
 		else {
 			self.animacionDerrape()
