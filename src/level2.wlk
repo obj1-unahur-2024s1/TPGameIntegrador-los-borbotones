@@ -11,15 +11,15 @@ object level2{
 	
 	//instancias de vehiculos enemigos para el level 2
 	
-	const enemigo1 = new AutoRojo( position = game.at(4,6))
-	const enemigo2 = new AutoRojo( position = game.at(5,1))
-	const enemigo3 = new Camion( position = game.at(3,7))
-	const enemigo4 = new Camion( position = game.at(4,2))
-	const enemigo5 = new AutoAmarillo( position = game.at(6,5))
-	const enemigo6 = new AutoAmarillo( position = game.at(7,5))
-	const enemigo7 = new AutoAzul( position = game.at(8,3))
-	const enemigo8 = new AutoAzul( position = game.at(8,4))
-	const enemigo9 = new AutoAzul( position = game.at(7,4))
+	const enemigo1 = new AutoRojo( position = game.at(8,1))
+	const enemigo2 = new AutoRojo( position = game.at(7,4))
+	const enemigo3 = new Camion( position = game.at(6,2))
+	const enemigo4 = new Camion( position = game.at(4,7))
+	const enemigo5 = new AutoAmarillo( position = game.at(6,6))
+	const enemigo6 = new AutoAmarillo( position = game.at(5,3))
+	const enemigo7 = new AutoAzul( position = game.at(8,6))
+	const enemigo8 = new AutoAzul( position = game.at(3,7))
+	const enemigo9 = new AutoAzul( position = game.at(4,2))
 	
 	//coleccion de los vehiculos enemigos level2
 	
@@ -61,32 +61,25 @@ object level2{
 	
 	method configurarPantallaLevel2(){
 		//sacamos el object mano
-		
 		game.removeVisual(mano)
-		
 		//configuramos fondo del juego en level 2
-		
 		fondo.cambiarFondo("fondoLevel2.png")
-		
     	// Iniciamos los personajes de level2
-    	
 		self.posicionarAutosEnemigos()
 		self.iniciarAutosEnemigos()
-		
-		//self.posicionarElementos()
-		
 		self.posicionarElementos()
 		self.iniciarElementos()
 		
 		// Iniciamos personajes que comparten ambos level
-		
+		referencia.reiniciar()
 		level1.posicionarAuto()
 		level1.posicionarBanderas()
-		level1.posicionarReferencia()
-    	referencia.reiniciar()
+		auto.cargarVidas()
+		medidorFuel.iniciar()
 		game.schedule(3000, { score.iniciar() } )
 		level1.audioLargada()
-		level1.cargasDeCombustible()	
+		level1.posicionarReferencia()
+		level1.iniciarCargasDeCombustible()	
 	}
 	
 	method posicionarAuto(){

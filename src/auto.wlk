@@ -52,15 +52,7 @@ object auto {
     method chocar(){
     	
 		if (vida == 0){
-			self.apagarMotor()
-			game.addVisual(bomba)
-			self.cargarVidas()
-			game.removeVisual(self)
-			bomba.explotar()
-			game.addVisual(gameOver)
-			game.sound("explosion.mp3").play()
-			game.sound("gameOver.mp3").play()
-			game.schedule(4000, {self.volverAlInicio() score.reiniciar()})
+			self.perder()
 		}
 		else {
 			self.animacionDerrape()
@@ -71,7 +63,20 @@ object auto {
 			
 		}
 	}
-	
+	method perder(){
+		self.apagarMotor()
+		self.explotar()
+		self.cargarVidas()
+		game.addVisual(gameOver)
+		game.sound("gameOver.mp3").play()
+		game.schedule(4000, {self.volverAlInicio() score.reiniciar()})
+	}
+	method explotar(){
+		game.addVisual(bomba)
+		game.removeVisual(self)
+		bomba.explotar()
+		game.sound("explosion.mp3").play()
+	}
 	//elimina la visual de la vida perdida
 	method quitarVida(){
 		vidas.get(vida - 1).quitar()

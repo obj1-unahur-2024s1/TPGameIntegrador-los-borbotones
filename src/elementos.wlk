@@ -105,6 +105,7 @@ class Fuel inherits Elemento{
 		game.sound("vida.mp3").play()
 		score.vidaObtenida()
 		game.removeVisual(self)
+		medidorFuel.reiniciar()
 	}
 }
 
@@ -233,6 +234,32 @@ object motor{
 	
 	method apagar() { sonido.pause() }
 }
+
+object medidorFuel{
+	var image = "barraNafta5.png"
+	const img= ["barraNafta5.png", "barraNafta4.png", "barraNafta3.png", "barraNafta2.png", "barraNafta1.png", "barraNafta0.png"]
+	
+	method image()= image
+	method position()= game.at(12,2)
+	
+	method image(nueva){ image= nueva}
+	method animacionFuel(){
+		var i= 0
+		// si el nivel de fuel llega a 0 se detiene el juego. Se podria agregar una pantalla game over.
+		game.onTick(6000,"bajaFuel",{self.image(img.get(i%6)) i+=1 if (self.noHayNafta()) auto.perder()})	
+	}
+	method noHayNafta()= self.image()== "barraNafta0.png"
+	method iniciar(){
+		game.addVisual( self)
+		self.animacionFuel()
+	}
+	method reiniciar(){
+		game.removeTickEvent("bajaFuel")
+		self.image("barraNafta5.png")
+		self.animacionFuel()
+	}
+}
+
 
 object pepita{
 	var position= game.at(3,6)

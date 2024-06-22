@@ -105,7 +105,7 @@ object level1 {
 		game.schedule(3000, {game.sound("largada2.mp3").play()})
 	}
 	
-	method cargasDeCombustible(){
+	method iniciarCargasDeCombustible(){
 		fuel.forEach{ f => game.addVisual(f) }
 		fuel.forEach{ f => f.inicializar((5.. 7).anyOne(), 8) }
 		game.schedule(15000, { fuel1.iniciar() })
@@ -124,16 +124,16 @@ object level1 {
 		self.posicionarAuto()
 		self.posicionarBanderas()
 		auto.cargarVidas()
-		//self.iniciarFuel()
+		medidorFuel.iniciar()
 		game.schedule(3000, { score.iniciar() } )
 		self.audioLargada()
+		self.posicionarReferencia()
+		self.iniciarCargasDeCombustible()
+		
     	// Iniciamos los personajes de level1
 		self.posicionarAutosEnemigos()
 		self.iniciarAutosEnemigos()
 		self.posicionarElementos()
 		self.iniciarElementos()
-		self.posicionarReferencia()
-		self.cargasDeCombustible()
-		
 	}
 }
