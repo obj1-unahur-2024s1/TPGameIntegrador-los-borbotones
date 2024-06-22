@@ -1,6 +1,71 @@
+import auto.*
+import elementos.*
+import vehiculos.*
+import wollok.game.*
+import configuracion.*
+import score.*
 
-test "testX" {
+describe "test sobre metodos de auto"{
+	
+	test "cantidad de vidas de auto 3"{
+		assert.equals( 3, auto.vida())
+	}
+	test "auto pierde una 1 vida"{
+		auto.posicionarVidas()
+		auto.quitarVida()
+		assert.equals( 2, auto.vida())
+	}
+	test "auto vuelve a la ruta"{
+		game.addVisual(auto)
+		auto.nuevaPosition(13,1)
+		auto.volverARuta()
+		assert.that(auto.estaEnRuta())
+	}
+}
 
-	assert.that(true)
+describe "test sobre elementos"{
+	
+	const elemento1 = new Arbusto(velocidad= 300, position = game.at(9,7))
+	const super1 = new Super(velocidad= 200, position = game.at(1,6))
+	const fuel1 = new Fuel(velocidad= 300, position = game.at(5,8))
+	
+	test "arbusto se mueve abajo de position(9,7) a (9,6)"{
+		game.addVisual(elemento1)
+		elemento1.moverseAbajo()
+		assert.equals( 7, elemento1.position().y() )
+	}
+	test "super se mueve una posicion hacia arriba"{
+		game.height(8)	
+		game.addVisual(super1)
+		super1.moverseArriba()
+		assert.equals( 7, super1.position().y() )
+	}
+	test "auto pierde una vida y fuel le suma una vida asi vuelve a 3"{
+		score.iniciar()
+		game.addVisual(fuel1)
+		auto.posicionarVidas()
+		auto.quitarVida()
+		fuel1.chocar()
+		assert.equals( 3, auto.vida() )
+	}
+}
 
+describe " test sobre los vehiculos"{
+	const vehiculo1 = new AutoRojo( position = game.at(4,6))
+	const vehiculo2 = new Camion( position = game.at(3,6))
+	
+	test "vehiculo1 es chocado y auto pierde una vida"{
+		game.addVisual(auto)
+		auto.posicionarVidas()
+		//vehiculo1.chocar()  no se puede por el sonido paso las indicaciones manualmente del metodo sin el sonido.
+		vehiculo1.moverseArriba()
+		auto.chocar()
+		assert.equals( 2, auto.vida() )
+		assert.equals( 7, vehiculo1.position().y() )
+	}
+	test "vehiculo2 se mueve hacia abajo"{
+		game.addVisual(vehiculo2)
+		vehiculo2.moverseALaDerecha()
+		assert.equals( 4, vehiculo2.position().x() )
+	}
 }

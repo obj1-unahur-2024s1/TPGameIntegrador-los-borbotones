@@ -145,18 +145,7 @@ class Bandera {
 	method image()= image
 	
 	method mostrarLlegada(){
-		/* 
-		fondo.cambiarFondo("llegada.png")
-		level1.pararVehiculos()
-		level1.pararElementos()
-		auto.apagarMotor()
-		auto.nuevaPosition(5,4)
-		pepita.salir()
-		game.schedule(8000, {level1.borrarElementos()})
-		game.schedule(8000, {level1.borrarVehiculos()})
-		game.schedule(9000, {level2.iniciarSiPasoDeLevel1()})
 		
-		*/
 		auto.apagarMotor()
 		fondo.cambiarFondo("llegada.png")
 		game.schedule(2000, {

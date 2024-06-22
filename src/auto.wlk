@@ -67,13 +67,14 @@ object auto {
 			game.say(self,["Soltá el celu", "La vista en el camino", "Dónde compraste el registro?", "Pagaste el seguro?"].get(0.randomUpTo(3)))
 			if (position.x() > 5) self.moverseALaDerecha() else self.moverseALaIzquierda()
 			self.quitarVida()
-			vida -=1
+			
 		}
 	}
 	
 	//elimina la visual de la vida perdida
 	method quitarVida(){
 		vidas.get(vida - 1).quitar()
+		vida -=1
 	}
 	
 	

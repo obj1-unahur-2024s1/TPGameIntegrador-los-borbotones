@@ -42,22 +42,7 @@ object level2{
 		autosEnemigos.forEach{enemigo => game.removeVisual(enemigo)}
 	}
 	
-	method iniciarSiPasoDeLevel1(){
-		//configuramos fondo del juego en level 2
-		fondo.cambiarFondo("fondoLevel2.png")
-		game.removeVisual(pepita)
-    	// Iniciamos los personajes de level2
-		//self.posicionarAutosEnemigos()
-		//self.posicionarElementos()
 		
-		// Iniciamos personajes que comparten ambos level
-		game.removeVisual(auto)
-		self.posicionarAuto()
-		level1.audioLargada()
-		referencia.reiniciar()
-		//self.iniciarFuel()
-		
-	}
 	method configurarPantallaLevel2(){
 		//sacamos el object mano
 		game.removeVisual(mano)
