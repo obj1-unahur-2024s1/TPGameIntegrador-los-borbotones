@@ -56,6 +56,24 @@ class Arbusto inherits Elemento{
 	}
 }
 
+class Piedra inherits Elemento {
+	var image = "piedras.png"
+	
+	const fotogramas = ["piedras.png", "piedrasAbajo.png", "piedrasArriba.png"]
+
+	method image() = image 
+	
+	override method moverseAbajo() {
+		image = fotogramas.get(1)
+    	const altura= game.height()					
+    	game.schedule(100, 
+    		{if (position.y() > 0) {position= game.at(position.x(), position.y()-1) }
+    		else { position= game.at(position.x(), altura-1 )}
+    		image = fotogramas.get(2) })
+    	game.schedule(200, { image = fotogramas.get(0) })
+	}
+}
+
 class Super inherits Elemento{
 	// definimos la imagen 
 
@@ -84,6 +102,7 @@ class Fuel inherits Elemento{
 	
 	override method chocar(){
 		auto.sumarVida()
+		game.sound("vida.mp3").play()
 		score.vidaObtenida()
 		game.removeVisual(self)
 	}
@@ -146,9 +165,22 @@ class Bandera {
 	
 	method mostrarLlegada(){
 		
+		score.parar()
+		game.sound("win.mp3").play()
+		if (fondo.image() == "fondoLevel1.png")
+			{fondo.cambiarFondo("llegada.png")
+			level1.pararVehiculos()
+			level1.pararElementos()}
+		else {
+			fondo.cambiarFondo("llegada2.png")
+			level2.pararVehiculos()
+			level2.pararElementos()}
 		auto.apagarMotor()
-		fondo.cambiarFondo("llegada.png")
-		game.schedule(2000, {
+		self.volverAlInicio()
+	}
+	
+	method volverAlInicio(){
+		game.schedule(7000, {
 			game.clear()
 			fondo.cambiarFondo("panallaInicial1.png")
 			juego.mostrarSelecLevel()
@@ -201,7 +233,6 @@ object motor{
 	
 	method apagar() { sonido.pause() }
 }
-
 
 object pepita{
 	var position= game.at(3,6)

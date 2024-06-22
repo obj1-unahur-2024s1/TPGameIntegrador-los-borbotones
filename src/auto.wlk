@@ -59,7 +59,8 @@ object auto {
 			bomba.explotar()
 			game.addVisual(gameOver)
 			game.sound("explosion.mp3").play()
-			game.schedule(3000, {self.volverAlInicio() score.reiniciar()})
+			game.sound("gameOver.mp3").play()
+			game.schedule(4000, {self.volverAlInicio() score.reiniciar()})
 		}
 		else {
 			self.animacionDerrape()

@@ -17,7 +17,7 @@ object juego {
 	
 	method configurarPantalla(){
 		//titulo
-		game.title("Autitos game")
+		game.title("ROAD FIGHTERS")
 		// límites del tablero de juego
     	game.width(14)                          // le damos ancho al tablero
 		game.height(8)							// le damos alto al tablero

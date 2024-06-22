@@ -43,7 +43,7 @@ object level1 {
 	
 	const fuel = [fuel1, fuel2, fuel3, fuel4]
 	
-	//instancias de banderas de referencia ambos level
+	//instancias de banderas de referencia de ambos niveles
 	
 	const bandera1 = new Bandera(image= "banderaLargada.png", position = game.at(0,0))
 	const bandera2 = new Bandera(image= "banderaLlegada.png", position = game.at(0,7))

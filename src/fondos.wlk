@@ -10,6 +10,5 @@ object fondo {
 	method cambiarFondo(nuevo){
 		fondo= nuevo
 	}
-	method mostrarLlegada(){}
 }
 

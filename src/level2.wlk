@@ -27,7 +27,15 @@ object level2{
 	
 	//instancias de elementos en pantalla del level 2
 	
+	const elemento1 = new Piedra(velocidad= 300, position = game.at(9,7))
+	const elemento2 = new Piedra(velocidad= 300, position = game.at(10,5))
+	const elemento3 = new Piedra(velocidad= 300, position = game.at(9,3))
+	const elemento4 = new Piedra(velocidad= 300, position = game.at(1,2))
+	const elemento5 = new Piedra(velocidad= 300, position = game.at(2,7))
+	
 	//coleccion de elementos del level 2
+	
+	const elementos = [elemento1, elemento2, elemento3, elemento4, elemento5]
 	
 	method posicionarAutosEnemigos(){
 		autosEnemigos.forEach{enemigo => game.addVisual(enemigo)}
@@ -41,29 +49,44 @@ object level2{
 	method borrarVehiculos(){
 		autosEnemigos.forEach{enemigo => game.removeVisual(enemigo)}
 	}
+	method posicionarElementos(){
+		elementos.forEach{elemento => game.addVisual(elemento)}
+	}
+	method iniciarElementos(){	
+		game.schedule(3000, { elementos.forEach{elemento => elemento.iniciar() } })
+	}
+	method pararElementos(){
+		elementos.forEach{ elemento => elemento.parar() }
+	}
 	
-		
 	method configurarPantallaLevel2(){
 		//sacamos el object mano
+		
 		game.removeVisual(mano)
+		
 		//configuramos fondo del juego en level 2
+		
 		fondo.cambiarFondo("fondoLevel2.png")
 		
     	// Iniciamos los personajes de level2
     	
 		self.posicionarAutosEnemigos()
+		self.iniciarAutosEnemigos()
+		
 		//self.posicionarElementos()
 		
+		self.posicionarElementos()
+		self.iniciarElementos()
+		
 		// Iniciamos personajes que comparten ambos level
+		
 		level1.posicionarAuto()
 		level1.posicionarBanderas()
 		level1.posicionarReferencia()
     	referencia.reiniciar()
-		score.iniciar()
+		game.schedule(3000, { score.iniciar() } )
 		level1.audioLargada()
-		level1.cargasDeCombustible()
-		self.iniciarAutosEnemigos()
-		
+		level1.cargasDeCombustible()	
 	}
 	
 	method posicionarAuto(){

@@ -3,10 +3,10 @@ import wollok.game.*
 class Num{
 	var position
 	var image
+	
 	method image()= image
 	method position()= position
 }
-
 
 object unidad{
 	var aux = 0
@@ -25,8 +25,13 @@ object unidad{
 	
 	method iniciar(){
 		game.addVisual(unidades.get(aux))
-		game.onTick(1000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
+		game.onTick(1000,"cambiarUnidad",{
+			game.removeVisual(unidades.get(aux)) 
+			game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) 
+			if (aux<9) { aux = aux + 1 } else { aux = 0 decena.sumaDiez()}
+		})
 	}
+	
 	method parar(){
 		game.removeTickEvent("cambiarUnidad")
 	}
@@ -47,22 +52,18 @@ object decena{
 	const nueve= new Num(position= game.at(12,6), image="number9.png" )
 	const unidades=[cero,uno,dos,tres,cuatro,cinco,seis,siete,ocho,nueve]
 	
-	method iniciar(){
-		game.addVisual(unidades.get(aux))
-		game.onTick(10000,"cambiarUnidad",{
-			game.removeVisual(unidades.get(aux)) 
-			game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) 
-			if (aux<9) { aux = aux + 1 } else { aux = 0 centena.sumarCien() }
-		})
-	}
+	method iniciar(){ game.addVisual(unidades.get(aux)) }
+	
 	method parar(){
 		game.removeTickEvent("cambiarUnidad")
 	}
+	
 	method sumaDiez(){
 		game.removeVisual(unidades.get(aux))
 		game.addVisual(unidades.get( if (aux<9) aux + 1 else 0))
 		if (aux<9) { aux = aux + 1 } else { aux = 0 centena.sumarCien() }
 	}
+	
 	method contadorACero(){ aux = 0 }
 }
 
@@ -81,10 +82,7 @@ object centena{
 	const nueve= new Num(position= game.at(11,6), image="number9.png" )
 	const unidades=[cero,uno,dos,tres,cuatro,cinco,seis,siete,ocho,nueve]
 	
-	method iniciar(){
-		game.addVisual(unidades.get(aux))
-		game.onTick(100000,"cambiarUnidad",{game.removeVisual(unidades.get(aux)) game.addVisual(unidades.get(if(aux<9)aux+1 else 0)) aux=if(aux<9)aux+1 else 0})
-	}
+	method iniciar(){ game.addVisual(unidades.get(aux)) }
 	
 	method parar(){
 		game.removeTickEvent("cambiarUnidad")
@@ -101,15 +99,11 @@ object centena{
 
 object score{
 	
-	method iniciar(){
-		[unidad, decena, centena].forEach{ n => n.iniciar() }
-	}
+	method iniciar(){ [unidad, decena, centena].forEach{ n => n.iniciar() } }
 	
-	method parar(){
-		[unidad, decena, centena].forEach{ n => n.parar() }
-	}
+	method parar(){ unidad.parar() }
 	
-	method vidaObtenida(){decena.sumaDiez()}
+	method vidaObtenida(){ decena.sumaDiez() }
 	
 	method reiniciar(){[unidad, decena, centena].forEach{ n => n.contadorACero() } }
 }
