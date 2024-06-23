@@ -31,7 +31,11 @@ object juego {
 		keyboard.up().onPressDo{mano.moverseArriba()}
 		keyboard.down().onPressDo{mano.moverseAbajo()}
 		//asignamos level 1 0 2 segun la posicion de mano
-		keyboard.enter().onPressDo{ if (mano.level()==1) level1.configurarPantallaLevel1() else level2.configurarPantallaLevel2() }
+		keyboard.enter().onPressDo{ 
+			
+			if (mano.level()==1) level1.configurarPantallaLevel1() else level2.configurarPantallaLevel2()
+			game.removeVisual(mano)
+		}
 	}
 	
 	method iniciarSonido(){

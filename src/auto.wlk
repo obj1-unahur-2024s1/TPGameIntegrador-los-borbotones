@@ -140,4 +140,7 @@ object auto {
 	method nuevaPosition(x,y){
 		position= game.at(x,y)
 	}
+	method borrarVidas(){
+		vidas.forEach{v => if (game.hasVisual(v)) game.removeVisual(v)}
+	}
 }

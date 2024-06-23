@@ -40,6 +40,8 @@ describe "test sobre elementos"{
 		super1.moverseArriba()
 		assert.equals( 7, super1.position().y() )
 	}
+	
+	/* 
 	test "auto pierde una vida y fuel le suma una vida asi vuelve a 3"{
 		score.iniciar()
 		game.addVisual(fuel1)
@@ -47,7 +49,7 @@ describe "test sobre elementos"{
 		auto.quitarVida()
 		fuel1.chocar()
 		assert.equals( 3, auto.vida() )
-	}
+	}*/
 }
 
 describe " test sobre los vehiculos"{

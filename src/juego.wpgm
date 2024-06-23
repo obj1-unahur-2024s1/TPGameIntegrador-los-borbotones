@@ -2,7 +2,6 @@
 import configuracion.*
 import wollok.game.*                           //importamos las librerias
 
-
 program roadFighter {
     
     juego.play()

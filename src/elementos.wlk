@@ -171,13 +171,17 @@ class Bandera {
 		if (fondo.image() == "fondoLevel1.png")
 			{fondo.cambiarFondo("llegada.png")
 			level1.pararVehiculos()
-			level1.pararElementos()}
+			level1.pararElementos()
+			auto.apagarMotor()
+			self.pasarDeLevel()}
+			
 		else {
 			fondo.cambiarFondo("llegada2.png")
 			level2.pararVehiculos()
-			level2.pararElementos()}
-		auto.apagarMotor()
-		self.volverAlInicio()
+			level2.pararElementos()
+			auto.apagarMotor()
+			self.volverAlInicio()}
+		
 	}
 	
 	method volverAlInicio(){
@@ -188,6 +192,17 @@ class Bandera {
 			juego.iniciarSonido()
 		})
 	}
+	method pasarDeLevel(){ game.schedule(7000, {
+		self.eliminarObjetos()
+		fondo.cambiarFondo("fondoLevel2.png")
+		level2.configurarPantallaLevel2()
+	})}
+	method eliminarObjetos(){
+		level1.borrarElementos()
+		level1.borrarVehiculos()
+		level1.borrarBanderas()
+		auto.borrarVidas()
+		game.removeVisual(auto)}
 }
 
 class Vida {
@@ -225,14 +240,13 @@ object motor{
 	
 	method inicializar(){
 		sonido.shouldLoop(true)
-		sonido.volume(0.3)
 		sonido.play()
-		sonido.pause()
+		sonido.volume(0)
 	}
 	
-	method encender(){ sonido.resume() }
+	method encender(){ sonido.volume(0.3) }
 	
-	method apagar() { sonido.pause() }
+	method apagar() { sonido.volume(0) }
 }
 
 object medidorFuel{

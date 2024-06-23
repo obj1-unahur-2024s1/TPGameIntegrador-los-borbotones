@@ -79,6 +79,11 @@ object level1 {
 		elementos.forEach{ elemento => game.removeVisual(elemento) }	
 	}
 	
+	method borrarBanderas(){
+		game.removeVisual(bandera1)
+		game.removeVisual(bandera2)
+	}
+	
 	method posicionarAuto(){
 		game.addVisual(auto)
 		auto.posicionarVidas()
@@ -116,7 +121,7 @@ object level1 {
 	
 	method configurarPantallaLevel1(){
 		//sacamos el object mano
-		game.removeVisual(mano)
+
 		//configuramos fondo del juego en level 1
 		fondo.cambiarFondo("fondoLevel1.png")
 		// Iniciamos personajes de ambos level
