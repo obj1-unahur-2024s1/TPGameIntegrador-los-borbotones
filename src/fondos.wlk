@@ -1,6 +1,7 @@
 import wollok.game.*
 
 //se crea object fondo para poder cambiarlo durante el juego
+
 object fondo {
 	var fondo= "panallaInicial1.png"
 	

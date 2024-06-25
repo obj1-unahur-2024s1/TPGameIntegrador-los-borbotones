@@ -27,7 +27,6 @@ describe "test sobre elementos"{
 	
 	const elemento1 = new Arbusto(velocidad= 300, position = game.at(9,7))
 	const super1 = new Super(velocidad= 200, position = game.at(1,6))
-	const fuel1 = new Fuel(velocidad= 300, position = game.at(5,8))
 	
 	test "arbusto se mueve abajo de position(9,7) a (9,6)"{
 		game.addVisual(elemento1)
@@ -40,16 +39,6 @@ describe "test sobre elementos"{
 		super1.moverseArriba()
 		assert.equals( 7, super1.position().y() )
 	}
-	
-	/* 
-	test "auto pierde una vida y fuel le suma una vida asi vuelve a 3"{
-		score.iniciar()
-		game.addVisual(fuel1)
-		auto.posicionarVidas()
-		auto.quitarVida()
-		fuel1.chocar()
-		assert.equals( 3, auto.vida() )
-	}*/
 }
 
 describe " test sobre los vehiculos"{

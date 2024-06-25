@@ -34,7 +34,6 @@ object juego {
 		keyboard.enter().onPressDo{ 
 			
 			if (mano.level()==1) level1.configurarPantallaLevel1() else level2.configurarPantallaLevel2()
-			game.removeVisual(mano)
 		}
 	}
 	

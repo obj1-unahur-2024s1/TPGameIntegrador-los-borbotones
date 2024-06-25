@@ -121,7 +121,7 @@ object level1 {
 	
 	method configurarPantallaLevel1(){
 		//sacamos el object mano
-
+		game.removeVisual(mano)
 		//configuramos fondo del juego en level 1
 		fondo.cambiarFondo("fondoLevel1.png")
 		// Iniciamos personajes de ambos level

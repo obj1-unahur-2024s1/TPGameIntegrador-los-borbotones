@@ -37,6 +37,8 @@ class Elemento {
 	}
 }
 
+// Arbusto, Piedra y Super son elementos decorativos.
+
 class Arbusto inherits Elemento{
 	// definimos la imagen
 	var image = "tree.png"
@@ -80,10 +82,11 @@ class Super inherits Elemento{
 	method image()= "super.png"
 	
 	override  method iniciar(){
-		game.onTick(velocidad,"movimientoElementos",{self.moverseArriba()})
+		game.onTick(velocidad,"movimientoSuper",{self.moverseArriba()})
 	}
 }
 	
+// Los al "chocar" fuels cargamos una vida y combustible. Es necesario hacerlo aunque tengamos todas las vidas para ganar.
 
 class Fuel inherits Elemento{
 	// definimos la imagen
@@ -109,6 +112,8 @@ class Fuel inherits Elemento{
 	}
 }
 
+// Cuando perdés, el auto explota y lo representamos con esto.
+
 object bomba{
 	//variables para las animaciones
 	const img = ["bomba1.png", "bomba2.png","bomba3.png"]
@@ -129,15 +134,19 @@ object bomba{
 	}
 }	
 
+// Mensaje que sale cuando perdés.
+
 object gameOver {
 	method position() = game.center()
 	
 	method text() = "GAME OVER"
 }
 
+// Objeto que muestra cuánto falta para terminar la carrera.
+
 object referencia {
 	
-	const velocidad = 10000
+	const velocidad = 8000
 	var position = game.at(0,1)
 	const image= "referencia.png"
 	method position()= position
@@ -155,6 +164,8 @@ object referencia {
 		game.onCollideDo(self, { bandera => bandera.mostrarLlegada() } )
 	}
 }
+
+// Bandera utilizada para poder ganar el juego. Cuando la referencia "choca" la bandera, ganás.
 
 class Bandera {
 	var position
@@ -192,18 +203,15 @@ class Bandera {
 			juego.iniciarSonido()
 		})
 	}
+	
 	method pasarDeLevel(){ game.schedule(7000, {
-		self.eliminarObjetos()
-		fondo.cambiarFondo("fondoLevel2.png")
-		level2.configurarPantallaLevel2()
-	})}
-	method eliminarObjetos(){
-		level1.borrarElementos()
-		level1.borrarVehiculos()
-		level1.borrarBanderas()
-		auto.borrarVidas()
-		game.removeVisual(auto)}
+		game.clear()
+		game.addVisual(fondo)
+		level2.configurarPantallaLevel2()})
+	}
 }
+
+// La imagen que representa la cantidad de vidas restante.
 
 class Vida {
 	var position
@@ -216,6 +224,8 @@ class Vida {
 	
 	method quitar(){game.removeVisual(self)}
 }
+
+// La mano selectora de niveles.
 
 object mano {
 	var position= game.at(5,2)
@@ -235,6 +245,8 @@ object mano {
 	}
 }
 
+// El sonido del motor cuando comienza la carrera.
+
 object motor{
 	const sonido = game.sound("motor.mp3")
 	
@@ -248,6 +260,8 @@ object motor{
 	
 	method apagar() { sonido.volume(0) }
 }
+
+// Una manera de perder es quedarse sin combustible. Cuando medidorFuel llega a 0, game over.
 
 object medidorFuel{
 	var image = "barraNafta5.png"
@@ -272,23 +286,4 @@ object medidorFuel{
 		self.image("barraNafta5.png")
 		self.animacionFuel()
 	}
-}
-
-
-object pepita{
-	var position= game.at(3,6)
-	
-	method position()= position
-	method image()= "pepita.png"
-	
-	method moverseALaDerecha(){
-    	const ancho= game.width()					//guardo en una const el ancho del tablero
-    	const nuevoX= (position.x()+1) % ancho	//le sumo 1 a la posicion del eje X, y me fijo si esta en la ultima posicion le doy el valor 0 
-	    position = game.at(nuevoX, self.position().y())	//guardo en la var position la nueva posicion
-    }
-    method salir(){
-    	game.addVisual(self)
-    		game.schedule(300, {game.say(self, "GANASTE")})
-    		game.schedule(300, {self.moverseALaDerecha()})
-    }
 }
