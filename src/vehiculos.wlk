@@ -39,7 +39,7 @@ class Vehiculo {
 	method parar(){
 		game.removeTickEvent("vehiculoBajar")
 	}
-	
+	method puedeAparecerEn(unaPosicionX) = game.getObjectsIn( game.at(unaPosicionX, game.height() -1 )).isEmpty()
 }
 
 class Camion inherits Vehiculo{
@@ -54,7 +54,10 @@ class Camion inherits Vehiculo{
     	const altura= game.height()					//guardo en una var la altura del tablero
     	game.schedule(100, 
     		{if (position.y() > 0) { position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
-    		else { position= game.at(x, altura-1 ) } 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
+    		else { 
+    			if (self.puedeAparecerEn(x)) position = game.at( x, altura-1 )
+    			else position = game.at( (3.. game.width()-6).anyOne(), altura-1 )	
+    		} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
     		image = fotogramas.get(2)})
     	game.schedule(200, {self.image(fotogramas.get(0))})
     }
@@ -71,8 +74,11 @@ class AutoRojo inherits Vehiculo{
 		const x = (3.. game.width()-6).anyOne()		//le asigno un valor random al Eje x
     	const altura= game.height()					//guardo en una var la altura del tablero
     	game.schedule(100, 
-    		{if (position.y() > 0) {position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
-    		else { position= game.at(x, altura-1 )} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
+    		{if (position.y() > 0) { position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
+    		else { 
+    			if (self.puedeAparecerEn(x)) position = game.at( x, altura-1 )
+    			else position = game.at( (3.. game.width()-6).anyOne(), altura-1 )	
+    		} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
     		image = fotogramas.get(2)})
     	game.schedule(200, {self.image(fotogramas.get(0))})
     }
@@ -89,12 +95,16 @@ class AutoAmarillo inherits Vehiculo{
 		const x = (3.. game.width()-6).anyOne()		//le asigno un valor random al Eje x
     	const altura= game.height()					//guardo en una var la altura del tablero
     	game.schedule(100, 
-    		{if (position.y() > 0) {position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
-    		else { position= game.at(x, altura-1 )} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
+    		{if (position.y() > 0) { position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
+    		else { 
+    			if (self.puedeAparecerEn(x)) position = game.at( x, altura-1 )
+    			else position = game.at( (3.. game.width()-6).anyOne(), altura-1 )	
+    		} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
     		image = fotogramas.get(2)})
     	game.schedule(200, {self.image(fotogramas.get(0))})
     }
 }
+
 class AutoAzul inherits Vehiculo{
 	// definimos la imagen 
 	var property image = "enemigo1.png"
@@ -106,8 +116,11 @@ class AutoAzul inherits Vehiculo{
 		const x = (3.. game.width()-6).anyOne()		//le asigno un valor random al Eje x
     	const altura= game.height()					//guardo en una var la altura del tablero
     	game.schedule(100, 
-    		{if (position.y() > 0) {position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
-    		else { position= game.at(x, altura-1 )} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
+    		{if (position.y() > 0) { position= game.at(position.x(), position.y()-1) }//si Eje y es mayor a 0 le resto 1
+    		else { 
+    			if (self.puedeAparecerEn(x)) position = game.at( x, altura-1 )
+    			else position = game.at( (3.. game.width()-6).anyOne(), altura-1 )	
+    		} 	//si Eje y es 0 le asigno al eje y la altura del tablero -1
     		image = fotogramas.get(2)})
     	game.schedule(200, {self.image(fotogramas.get(0))})
     }
